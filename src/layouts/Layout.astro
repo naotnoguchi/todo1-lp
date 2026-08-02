@@ -1,23 +1,77 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = '1st ToDo — 思いついたら、すぐToDo。',
+	description = 'タスク名だけですぐ登録。必要なときだけ整理でき、データはAndroid端末内だけに保存するシンプルなToDoアプリです。',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL('/og.png', Astro.site);
+const isHome = Astro.url.pathname === '/';
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="ja">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#f7f7f2" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<meta name="description" content={description} />
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<link rel="canonical" href={canonicalURL} />
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="ja_JP" />
+		<meta property="og:site_name" content="1st ToDo" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:image" content={ogImageURL} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content="1st ToDo — 思いついたら、すぐToDo。" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageURL} />
+		<title>{title}</title>
 	</head>
 	<body>
-		<slot />
+		<a class="skip-link" href="#main-content">本文へ移動</a>
+		<header class="site-header">
+			<div class="container header-inner">
+				<a class="brand" href="/" aria-label="1st ToDo トップページ">
+					<span class="brand-mark" aria-hidden="true">1</span>
+					<span>1st ToDo</span>
+				</a>
+				<nav class="site-nav" aria-label="メインナビゲーション">
+					<a href={isHome ? '#features' : '/#features'}>できること</a>
+					<a href="/privacy/" aria-current={isHome ? undefined : 'page'}>プライバシー</a>
+				</nav>
+			</div>
+		</header>
+
+		<main id="main-content">
+			<slot />
+		</main>
+
+		<footer class="site-footer">
+			<div class="container footer-inner">
+				<a class="brand brand-footer" href="/" aria-label="1st ToDo トップページ">
+					<span class="brand-mark" aria-hidden="true">1</span>
+					<span>1st ToDo</span>
+				</a>
+				<div class="footer-meta">
+					<a href="/privacy/">プライバシーポリシー</a>
+					<small>&copy; 2026 1st ToDo</small>
+				</div>
+			</div>
+		</footer>
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

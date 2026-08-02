@@ -1,7 +1,7 @@
 {
-  "name": "users-naotonoguchi-projects-todo1-lp",
+  "name": "todo1-lp",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "engines": {
     "node": ">=22.12.0"
   },
